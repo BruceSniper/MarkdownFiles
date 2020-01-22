@@ -18,7 +18,7 @@
 
 > `yum list installed | grep docker`
 
-![avatar](\img\1.jpg)
+![avatar](https://github.com/BruceSniper/MarkdownFiles/raw/master/Docker/img/1.jpg)
 
 删除安装包
 
@@ -36,5 +36,5 @@
 
 再次检查Docker是否已经卸载成功
 
-![avatar](\img\2.jpg)
+![avatar](https://github.com/BruceSniper/MarkdownFiles/raw/master/Docker/img/2.jpg)
 

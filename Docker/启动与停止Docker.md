@@ -14,4 +14,4 @@
 
 我们看到 running 字样就说明 docker 启动成功了
 
-![avatar](\img\3.jpg)
+![avatar](https://github.com/BruceSniper/MarkdownFiles/raw/master/Docker/img/3.jpg)

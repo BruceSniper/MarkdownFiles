@@ -4,16 +4,16 @@
 命令是系统服务管理器指令，它是 service 和 chkconfig 两个命令组合。
 
 > `systemctl start docker  启动 docker`
-
+>
 > `systemctl status docker 查看 docker 的启动状态`
-
+>
 > `system ctl stop docker 关闭 docker`
-
+>
 > `systemctl restart docker 重启 docker`
-
+>
 >
 > `docker info 查看 docker 的概要信息`
-
+>
 > `docker -help 查看 docker 的帮助文档`
 
 

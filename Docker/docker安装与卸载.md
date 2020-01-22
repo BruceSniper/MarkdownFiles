@@ -22,17 +22,19 @@
 
 删除安装包
 
-> `yum -y remove docker.x86_64`
-> `yum -y remove docker client.x86_64`
-> `yum -y remove docker common.x86_64`
+`yum -y remove docker.x86_64`
+
+`yum -y remove docker client.x86_64`
+
+`yum -y remove docker common.x86_64`
 
 删除 docker 镜像(可以先进入目录查看文件和运行情况)
 
 > `cd /var/lib/docker/`
 >> `ls`
->>> `ll`
+>> `ll`
 
-> `rm -rf /var/lib/docker/`
+`rm -rf /var/lib/docker/`
 
 再次检查Docker是否已经卸载成功
 

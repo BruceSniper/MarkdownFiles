@@ -3,13 +3,13 @@
 ### 列出镜像
 列出宿主机上所有的镜像：
 
-> `docker images`    
+`docker images`    
 
 
 
 
 ### 搜索镜像
-> `docker search 镜像名称`
+`docker search 镜像名称`
 
 例：搜索tomcat镜像：
 
@@ -32,34 +32,34 @@
 使用国内镜像地址：https://docker.mirrors.ustc.edu.cn
 
 在Centos中，用vi进行编辑：
-> `vi /etc/docker/daemon.json`
+`vi /etc/docker/daemon.json`
 
 在配置文件中加入下载地址信息：
 
-> ```
-> {
->        "registry mirrors": ["https://docker.mirrors.ustc.edu.cn]
->  }
-> ```
+```
+{
+    "registry mirrors": ["https://docker.mirrors.ustc.edu.cn]
+}
+```
 
 
 重启docker：
 
-> `systemctl restart docker`
+`systemctl restart docker`
 
 
 ##### 拉取镜像
 
-> `docker pull 镜像名称`
+`docker pull 镜像名称`
 
 ### 删除镜像
 
 我们可以删除指定的镜像也可以删除所有的镜像
 
-> `docker rmi 镜像名称/镜像ID`
+`docker rmi 镜像名称/镜像ID`
 
 删除所有镜像：
-> ```docker rmi `docker images -q`：删除所有镜像```
+```docker rmi `docker images -q`：删除所有镜像```
 
 
 > ```

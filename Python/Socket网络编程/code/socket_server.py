@@ -19,7 +19,7 @@ print(conn, addr)
 
 print("电话来了")
 data = conn.recv(1024)
-print("recv:", data)
+print("recv:", data.decode())
 
 conn.send(data.upper())
 

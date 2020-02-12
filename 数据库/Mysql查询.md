@@ -233,7 +233,6 @@ select * from students where height is not null;
 
 ### 排序
 
-* **基础排序**
 
 ```sql
 -- order by 字段
@@ -264,7 +263,7 @@ select * from students where (age between 18 and 34) and gender=2 order by heigh
 select * from students order by age asc, height desc;
 ```
 
-* **聚合函数**
+### 聚合函数
 
 ```sql
 -- 总数
@@ -319,7 +318,7 @@ select round(avg(height), 2) from students where gender=1;
 ```
 
 
-* **分组（和聚合函数一起用）**
+### 分组（和聚合函数一起用）
 
 
 ```sql
@@ -359,7 +358,7 @@ select gender, group_concat(name),avg(age) from students group by gender having 
 select gender, group_concat(name) from students group by gender having count(*)>2;
 ```
 
-* **分页**
+### 分页**
 
 ```sql
 -- limit start, count
@@ -392,4 +391,226 @@ select * from students limit 6,2; -- -----> limit (第N页-1)*每个的个数, �
 select * from students order by age asc limit 10,2;
 
 select * from students where gender=2 order by height desc limit 0,2;
+```
+
+### 连接查询
+
+当查询结果的列来源于多张表时，需要将多张表连接成一个大的数据集，再选择合适的列返回
+
+mysql支持三种类型的连接查询，分别为：
+
+* <u>内连接</u>查询：查询的结果为两个表匹配到的数据（取交集）
+
+    ![avatar](https://github.com/BruceSniper/MarkdownFiles/raw/master/数据库/img/16.png)
+
+* <u>外连接</u>：
+    * 右连接查询：查询的结果为两个表匹配到的数据，右表特有的数据，对于左表中不存在的数据使用null填充
+
+    ![avatar](https://github.com/BruceSniper/MarkdownFiles/raw/master/数据库/img/17.png)
+
+    * 左连接查询：查询的结果为两个表匹配到的数据，左表特有的数据，对于右表中不存在的数据使用null填充
+
+    ![avatar](https://github.com/BruceSniper/MarkdownFiles/raw/master/数据库/img/18.png)
+
+
+```sql
+-- inner join ... on
+
+-- select ... from 表A inner join 表B;
+select * from students inner join classes;
+
+
+-- 查询 有能够对应班级的学生以及班级信息
+select * from students inner join classes on students.cls_id=classes.id;
+
+-- 按照要求显示姓名、班级
+select students.*, classes.name from students inner join classes on students.cls_id=classes.id;
+select students.name, classes.name from students inner join classes on students.cls_id=classes.id;
+
+-- 给数据表起名字
+select s.name, c.name from students as s inner join classes as c on s.cls_id=c.id;
+
+-- 查询 有能够对应班级的学生以及班级信息，显示学生的所有信息，只显示班级名称
+select s.*, c.name from students as s inner join classes as c on s.cls_id=c.id;
+
+-- 在以上的查询中，将班级姓名显示在第1列
+select c.name, s.* from students as s inner join classes as c on s.cls_id=c.id;
+
+
+-- 查询 有能够对应班级的学生以及班级信息, 按照班级进行排序
+-- select c.xxx s.xxx from student as s inner join clssses as c on .... order by ....;
+select c.name, s.* from students as s inner join classes as c on s.cls_id=c.id order by c.name;
+
+
+-- 当时同一个班级的时候，按照学生的id进行从小到大排序
+select c.name, s.* from students as s inner join classes as c on s.cls_id=c.id order by c.name,s.id;
+
+
+-- left join（一左边表里的内容为基准，没有就显示null）
+-- 查询每位学生对应的班级信息
+select * from students as s left join classes as c on s.cls_id=c.id;
+
+
+-- right join   on  （很少用）
+-- 将数据表名字互换位置，用left join完成
+
+
+-- 查询没有对应班级信息的学生
+-- select ... from xxx as s left join xxx as c on..... where .....（从原表中查）
+-- select ... from xxx as s left join xxx as c on..... having .....（从检索出来的新结果中查）
+select * from students as s left join classes as c on s.cls_id=c.id having c.id is null;
+select * from students as s left join classes as c on s.cls_id=c.id where c.id is null;
+```
+
+### 自关联
+
+* 设计省信息的表结构provinces
+    * id
+    * ptitle
+
+* 设计市信息的表结构citys
+    * id
+    * ctitle
+    * proid
+
+* citys表的proid表示城市所属的省，对应着provinces表的id值
+
+##### 问题：
+> 能不能将两个表合成一张表呢？
+
+##### 思考：
+> 观察两张表发现，citys表比provinces表多一个列proid，其它列的类型都是一样的
+
+##### 意义：
+> 存储的都是地区信息，而且每种信息的数据量有限，没必要增加一个新表，或者将来还要存储区、乡镇信息，都增加新表的开销太大
+
+##### 答案：
+> 定义表areas，结构如下
+>    * id
+>    * atitle
+>    * pid
+
+##### 说明：
+* 因为省没有所属的省份，所以可以填写为null
+
+* 城市所属的省份pid，填写省所对应的编号id
+
+* 这就是自关联，表中的某一列，关联了这个表中的另外一列，但是它们的业务逻辑含义是不一样的，城市信息的pid引用的是省信息的id
+
+* 在这个表中，结构不变，可以添加区县、乡镇街道、村社区等信息
+
+##### 创建areas表的语句如下：
+
+```sql
+create table areas(
+    aid int primary key,
+    atitle varchar(20),
+    pid int
+);
+```
+
+* 从sql文件中导入数据
+```sql
+source areas.sql;
+```
+
+* 查询一共有多少个省
+```sql
+select count(*) from areas where pid is null;
+```
+
+* 例1：查询省的名称为“山西省”的所有城市
+```sql
+select city.* from areas as city
+inner join areas as province on city.pid=province.aid
+where province.atitle='山西省';
+```
+
+* 例2：查询市的名称为“广州市”的所有区县
+```sql
+select dis.* from areas as dis
+inner join areas as city on city.aid=dis.pid
+where city.atitle='广州市';
+```
+
+```sql
+-- 省级联动 url:http://demo.lanrenzhijia.com/2014/city0605/
+
+-- 查询所有省份
+select * from areas where pid is null;
+
+-- 查询出山东省有哪些市
+select * from areas as province inner join areas as city on city.pid=province.aid having province.atitle="山东省";
+select province.atitle, city.atitle from areas as province inner join areas as city on city.pid=province.aid having province.atitle="山东省";
+
+-- 查询出青岛市有哪些县城
+select province.atitle, city.atitle from areas as province inner join areas as city on city.pid=province.aid having province.atitle="青岛市";
+select * from areas where pid=(select aid from areas where atitle="青岛市")
+
+```
+
+### 子查询
+> 在一个 select 语句中,嵌入了另外一个 select 语句, 那么被嵌入的 select 语句称之为子查询语句
+
+##### 主查询和子查询的关系:
+
+* 子查询是嵌入到主查询中
+* 子查询是辅助主查询的,要么充当条件,要么充当数据源
+* 子查询是可以独立存在的语句,是一条完整的 select 语句
+
+##### 子查询分类
+
+* 标量子查询: 子查询返回的结果是一个数据(一行一列)
+* 列子查询: 返回的结果是一列(一列多行)
+* 行子查询: 返回的结果是一行(一行多列)
+
+###### 标量子查询
+
+1.查询班级学生平均年龄
+2.查询大于平均年龄的学生
+
+
+```sql
+select * from students where age > (select avg(age) from students);
+```
+
+###### 列级子查询
+
+* 查询还有学生在班的所有班级名字
+*   1.找出学生表中所有的班级 id
+    2.找出班级表中对应的名字
+
+```sql
+select name from classes where id in (select cls_id from students);
+```
+
+###### 行级子查询
+
+* 需求: 查找班级年龄最大,身高最高的学生
+* 行元素: 将多个字段合成一个行元素,在行级子查询中会使用到行元素
+
+```sql
+select * from students where (height,age) = (select max(height),max(age) from students);
+```
+
+##### 子查询中特定关键字使用
+
+* in 范围
+    * 格式: 主查询 where 条件 in (列子查询)
+
+
+
+```sql
+-- 标量子查询
+-- 查询出高于平均身高的信息
+
+-- 查询最高的男生信息
+select * from students where height = 188;
+select * from students where height = (select max(height) from students);
+
+-- 列级子查询
+-- 查询学生的班级号能够对应的学生信息
+-- select * from students where cls_id in (select id from classes);
+
+
 ```

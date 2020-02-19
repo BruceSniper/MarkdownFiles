@@ -30,9 +30,9 @@ class JD(object):
         sql = "select name from goods_cates;"
         self.execute_sql(sql)
 
-        def show_brands(self):
-            sql = "select name from goods_brands;"
-            self.execute_sql(sql)
+    def show_brands(self):
+        sql = "select name from goods_brands;"
+        self.execute_sql(sql)
 
     @staticmethod
     def print_menu():

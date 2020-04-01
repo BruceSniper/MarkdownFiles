@@ -147,3 +147,19 @@ STATICFILES_DIRS = [
 ```
 
 项目即可运行
+
+## 5. ECharts设置
+
+1. 进入frontend文件夹安装echarts
+
+```
+cd frontend
+cnpm install echarts
+```
+
+2. 安装pyecharts
+
+```
+# 项目根目录
+pipenv install pyecharts
+```

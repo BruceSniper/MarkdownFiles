@@ -58,7 +58,7 @@ HTML标记的类型：单标记与双标记
 
 meta标记用于定义文件信息，对网页文件进行说明，放置于`<head></head>`之间
 
-* 设置关键字：`<meta name="keywords" content="value">`，多个关键字内容之间可以用逗号分隔。
+* 设置关键字：`<meta name="keywords" content="value"/>`，多个关键字内容之间可以用逗号分隔。
 * 设置描述：`<meta name="description" content="value"/>`
 * 设置作者：`<meta name="author" content="value"/>`
 * 设置字符集：`<meta http-equiv="content-type" content="text/html;charset=gb2312"/>`
@@ -126,9 +126,9 @@ x取值 [1-6] ：hx内的文本对自动加粗显示。
 
 1. 列表标记的用途：列表标记可以创建一般的无需列表、编号列表，以及定义列表的三种方式。还可以在一种列表中嵌套另一种列表。便于概括显示一系列相关的内容。
 
-* 无需列表：<ul>...</ul>
-* 有序列表：<ol>...</ol>
-* 定义列表：<dl>...<dl>
+* 无序列表：`<ul>...</ul>`
+* 有序列表：`<ol>...</ol>`
+* 定义列表：`<dl>...<dl>`
 
 2. 无序列表
 * 语法：`<ul  type="项目符号类型">    <li  type="项目符号类型">内容1</li>    <li>内容2</li>  </ul>`
@@ -281,3 +281,200 @@ B. 添加收藏：
 
 * 关闭窗口：输入javascript:window.close()
 * 打开窗口：输入javascript:window.open ('文件名')
+
+### 六. 表单
+
+#### （一）表单的功能
+
+1. 表单的作用是从访问您web站点的用户那里获取信息，访问者可以使用诸如文本框、列表框、单选框及复选框之类的表单元素输入信息，然后单击某个按钮提交这些信息。
+
+2. 客户端和服务器端进行交流的途径。
+
+#### （二）表单标记
+
+##### 1. form标记用于创建一个表单，定义表单的开始和结束，它是一个容器，用于包含其他表单元素，例如文本框、单选框等。表单元素必须写在form标记内才有用。
+
+##### 2. 格式：
+
+`<form  action=URL（处理表单信息的服务器端应用程序） method=处理表单数据的方法（POST/GET）如果不写默认为GET   name=表单名称>...</form>`
+
+##### 3. 表单元素标记：
+
+###### A. 单行文本框：
+
+`<input  name="文本框名称"  type="text"  value="初始值"  size="显示字符数"  maxlength="最多容纳字符数"  readonly="readonly"（设置为只读）  disabled="disabled"（设置为不可操作） />`
+
+###### B. 密码框：
+
+`<input  name="密码框名称"  type="password"  value="初始值"  size="显示字符数" />`
+
+###### C. 多行文本框：
+
+`<textarea  name="文本框名称"  cols="每行的字符数"  rows="显示的行数"></textarea>`
+
+###### D. 单选框：
+
+`<input  name="单选框名称"  type="radio"  value="提交值"  checked="checked"（是否被选中）/>`
+
+###### E. 复选框：
+
+`<input  name="复选框名称" type="checkbox"  value="提交值"  checked="checked" />`
+
+###### F. 标注：
+
+`<label  for="man">男</label>  <input  type="radio"  name="sex"  value="男"  id="man">`
+
+###### G. 列表框：
+
+* 菜单式：
+
+```html
+<select  name="列表框名称">
+
+    <option  selected="selected"（哪个为初始值就添加selected语句）  value="提交值">列表1</option>
+
+    <option  value="提交值">列表2</option>
+
+                    ......
+
+</select>
+
+分组：<optgtoup  label="分组名称"></optgroup>
+```
+
+* 列表式
+
+```html
+<select  name="列表框名称"  size="显示的行数"  multiple（如果允许多选则有该命令，否则没有此命令）>
+                    <option  value="提交值"></option>
+                    ......
+</select>
+```
+
+###### H. 按钮：
+
+`<input  type="按钮类型（reset重置表单、submit提交表单、button普通按钮）"  name="按钮名称"  value="按钮显示文本" />`
+
+###### I. 图片按钮：
+
+`<input  name="按钮名称"  type="image"  src="图片路径" />`
+
+###### J. 隐藏域：
+
+`<input  name="名称"  type="hidden"  value="提交值" />`
+
+###### K. 浏览框：
+
+`<input  name="名称"  type="file"  size="显示长度" />`
+
+###### L. 表单外框：
+
+`<fieldset >...</fieldset>`--------定义围绕表单中元素的边框
+`<legend>...</legend>`---------legend为fieldset定义标题
+
+### 七. 插入多媒体元素标记
+
+#### 1. Flash动画的插入
+
+![](https://img-blog.csdn.net/20150725201337635)
+
+#### 2. 插入MP3音乐
+
+![](https://img-blog.csdn.net/20150725201617582)
+
+#### 3. 插入背景音乐
+
+`<bgsound  src="音乐文件名及路径"  loop="循环次数" />（如果loop=-1即为无限循环）`
+
+#### 4. 插入视频wmv格式
+
+`<embed  src="tmcq.wmv"></embed>`
+
+#### 5. 网络流媒体文件的插入
+
+```html
+<embed src="http://player.youku.com/player.php/sid/XMzA1MDE5MDMy/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash">
+</embed>
+```
+
+#### 6. 动字幕
+
+`<marquee>滚动的文字</marquee>`
+
+* direction="滚动方向"（left、right、up、down）
+* behavior="滚动方式"（scroll、slide、alternet）
+* loop="循环次数"（若未指定则循环不止，loop=infinite）
+* bgcolor=""  
+* onMouseOver="this.stop()"     onMouseOut="this.start()"
+* scrollamount=""
+* scrolldelay=""
+
+### 八. 框架--实现网页之中嵌套网页
+
+#### 1. 框架的功能：
+
+将浏览器划分为不同的区域，每个区域可以包含不同的网页。以实现多个网页在一个浏览器窗口中显示的效果。
+
+#### 2. 框架的格式：
+
+写框架时，不需要写body语句。
+
+```html
+<frameset  rows="行数及行高"  cols="列数及列宽"  framespcing="框架间距"  frameborder="是否显示边框（yes,no/0,1）"  border="边框宽度"  bordercolor="边框颜色">
+
+<frame  src="文件地址及名称"  name="框架名称"  noresize="是否允许改变尺寸（true/false）"  scrolling="滚动条显示（yes/no/auto）">
+
+</frame>
+
+</frameset>
+```
+
+#### 3. 内嵌式框架
+
+```html
+<iframe  src="被嵌套的网页地址及名称"  width="宽度"  height="高度"  frameborder="是否显示边框（0,1）"  scrolling="滚动条显示（yes/no/auto）">
+
+</iframe>
+```
+
+### 九. 从html迈向xhtml
+
+![](https://img-blog.csdn.net/20150727133452741)
+
+#### 1、什么是XHTML？
+
+XHTML是The Extensible  Hyper  Text  Markup  Language的缩写，xhtml的意思是可扩展标识语言。
+
+XHTML是HTML向XML过度的一个桥梁，Xhtml是基于html的，这是更严密、代码更简洁的HTML版本。
+
+#### 2. DOCTYPE
+
+DOCTYPE是document  type（文档类型）的简写，主要用来说明你用的XHTML或HTML是什么版本。浏览器根据DOCTYPE定义的DTD来解释页面代码，并展现出来。所以，建立符合标准的网页，DOCTYPE声明是必不可少的关键组成部分。
+
+#### 3. XHTML1.0提供了三种DTD声明：
+
+* 过度的（Transitional）：要求非常宽松的DTD，它允许你继续使用HTML4.0.1的标记（但是要符合xhtml的语法），完整代码如下：
+
+```html
+<!DOCTYPE  html  PUBLIC  "-//W3C//DTD  XHTML1.0 Transitional//EN"  "http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+```
+
+* 严格的（Strict）：要求严格的DTD，你不能使用任何表现层的标记和属性，例如`<br>`，完整代码如下：
+
+```html
+<!DOCTYPE  html  PUBLIC  "-//W3C//DTD  XHTML1.0 Strict//EN"  "http://www.w3c.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+```
+
+* 框架的（Frameset）：专门针对框架页面设计使用的DTD，如果你的页面中包含有框架，需要采用这种DTD。完整代码如下：
+
+```html
+<!DOCTYPE  html  PUBLIC  "-//W3C//DTD  XHTML1.0 Frameset//EN"  "http://www.w3c.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+```
+
+#### 4. XHTML与HTML的区别：
+
+* XHTML标签必须被正确的嵌套；
+* XHTML标签必须被关闭；
+* 标签名必须用小写字母；
+* 属性名必须用小写，必有值，值必加引号；
+

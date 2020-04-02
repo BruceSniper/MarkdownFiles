@@ -79,7 +79,7 @@ web标准不是某一个标准，而是由W3C和其他标准化组织指定的�
 
 `<p  style="color:red">...</p>`
 
-2. 嵌入式样式表：使用`<style></style>标签嵌入到HTML文件的头部<head>`标记内，如：
+2. 嵌入式样式表：使用`<style></style>`标签嵌入到HTML文件的头部`<head>`标记内，如：
 
 `<style  type="text/css">...</style>`
 

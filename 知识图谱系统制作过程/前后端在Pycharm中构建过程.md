@@ -163,3 +163,22 @@ cnpm install echarts
 # 项目根目录
 pipenv install pyecharts
 ```
+
+## 6. 安装Django rest framework
+
+`pipenv install djangorestframework markdown django-filter`
+
+将`'rest_framework'`加入到settings.py的`INSTALLED_APPS`里
+
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'backend',
+    'rest_framework',
+]
+```

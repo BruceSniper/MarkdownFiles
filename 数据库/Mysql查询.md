@@ -5,7 +5,7 @@
 * **创建一个数据库**
 
 ```sql
-create database python_test charset=utf-8;
+create database python_test charset=utf8;
 ```
 
 * **使用一个数据库**
